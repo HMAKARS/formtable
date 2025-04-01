@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로테이션 소개팅 <테이블시그널> 신청서</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #eee;
+            }
+
+            .form-container {
+                background-color: #1e1e1e;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+            }
+
+            input, textarea {
+                background-color: #2a2a2a;
+                color: #fff;
+                border: 1px solid #555;
+            }
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="radio"] {
+            margin-right: 6px;
+        }
+
+        .checkbox {
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #43a047;
+        }
+
+        small {
+            font-size: 0.85em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>💌 로테이션 소개팅 신청서</h2>
+    {% if form.errors %}
+    <div style="color: red; margin-bottom: 10px;">
+        <ul>
+            {% for field in form %}
+            {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {{ form.gender.label_tag }}
+        {{ form.gender }}
+
+        {{ form.age.label_tag }}
+        <small>이번 로테이션 소개팅은 만 25세 ~ 만 32세만 참가 가능합니다.</small>
+        {{ form.age }}
+
+        {{ form.job_field.label_tag }}
+        {{ form.job_field }}
+
+        <label for="id_photos">본인의 6개월 이내 사진을 2~3장 첨부해주세요</label>
+        <small>(신원 확인을 위한 목적으로 확인 즉시 파기됩니다.)</small><br>
+        <input type="file" name="photos" id="id_photos" multiple required>
+
+        {{ form.name.label_tag }}
+        {{ form.name }}
+
+        {{ form.phone.label_tag }}
+        {{ form.phone }}
+
+        <div style="margin-top: 30px; font-size: 0.9em; color: #555; line-height: 1.6;">
+            <p>※ 원활한 모임 안내 및 연락을 위해 휴대폰 번호를 수집합니다.</p>
+            <p>※ 사진은 본인 확인을 위한 용도로만 사용되며, 사진 제출에 동의하신 경우에만 등록이 완료됩니다. 수집된 정보는 모임 종료 후 즉시 파기됩니다.</p>
+            <p>※ 이용 시 홍보 목적을 위한 사진 및 영상 촬영이 있을 수 있습니다. (전체 모자이크 처리됩니다.)</p>
+            <p>※ 성별 비율은 경우에 따라 약간씩 달라질 수 있습니다.</p>
+            <p>※ 최소 신청 인원 수가 채워지지 않으면 모임이 취소되며, 취소 시 환불은 이용일자 2일 전 개별 연락 후 처리됩니다.</p>
+        </div>
+        <div class="checkbox" style="margin-top: 15px;">
+            <label style="display: flex; align-items: center; gap: 6px;">
+                <span>위 약관 내용을 모두 확인하였으며 동의합니다.</span>
+                <input type="checkbox" name="agree" required>
+            </label>
+        </div>
+
+        <button type="submit" id="submit-btn">🚀 신청하기</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const button = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function () {
+            button.disabled = true;
+            button.innerText = '⏳ 신청중입니다. 잠시만 기다려주세요';
+            button.style.opacity = '0.6';
+            button.style.cursor = 'not-allowed';
+        });
+    });
+
+</script>
+</body>
+</html>
