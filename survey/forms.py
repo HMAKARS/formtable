@@ -23,16 +23,19 @@ class SurveyForm(forms.Form):
         label="현재 종사하시는 분야에 대해 간단히 적어주세요",
         widget=forms.TextInput()
     )
+    """
     photos = forms.FileField(
         label="본인의 6개월 이내 사진을 2~3장 첨부해주세요",
         widget=forms.ClearableFileInput(),
         required=True
     )
+    """
     name = forms.CharField(
         label="성함을 적어주세요",
         widget=forms.TextInput(),
         required=True
     )
+
     phone = forms.CharField(
         label="모임 이용을 위한 연락처를 입력해주세요. 참가자 선정이 되면 개별 연락으로 참가안내를 드립니다.",
         max_length=11,
