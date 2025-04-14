@@ -95,6 +95,7 @@
 </head>
 <body>
 <div class="form-container">
+    <button id="test_alert">얼랏 테스트</button>
     <h2>💌 로테이션 소개팅 신청서</h2>
     {% if form.errors %}
     <div style="color: red; margin-bottom: 10px;">
@@ -162,6 +163,11 @@
             button.style.cursor = 'not-allowed';
         });
     });
+
+    document.addEventListener('click', function () {
+        alert("test")
+    });
+
 
 </script>
 </body>
