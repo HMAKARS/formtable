@@ -23,7 +23,7 @@ def survey_view(request):
                 email = EmailMessage(
                     subject, message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=['tableparty58@gamil.com']  # 수신자 주소 수정
+                    to=['tableparty58@gmail.com']  # 수신자 주소 수정
                 )
 
 
